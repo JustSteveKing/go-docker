@@ -1,0 +1,17 @@
+version: '2.2'
+
+networks:
+  backend:
+
+services:
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: go_docker
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    networks: 
+      - backend
+  

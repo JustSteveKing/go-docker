@@ -1,0 +1,58 @@
+openapi: 3.0.0
+info:
+  title: Go Docker
+  version: '1.0'
+  contact:
+    name: Steve McDougall
+    url: 'https://www.juststeveking.uk'
+    email: juststevemcd@gmail.com
+servers:
+  - url: 'http://localhost:8080'
+    description: Docker
+paths:
+  /:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                default: application/vnd.api+json
+              description: The APi should always return application/vnd.api+json unless there is an error
+              required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ping'
+      operationId: ping-check
+      description: A simple health check endpoint that will return the name and version of the API
+      parameters:
+        - schema:
+            type: string
+            default: application/vnd.api+json
+          in: header
+          name: Accept
+          description: We should always send over an Accepts Header for content negotiation
+          required: true
+    parameters: []
+components:
+  schemas:
+    Ping:
+      title: Ping
+      type: object
+      properties:
+        name:
+          type: string
+          description: The Name of the Application
+          default: Go Docker
+        version:
+          type: string
+          description: The current Versino of the Application
+          default: v1.0
+      required:
+        - name
+        - version

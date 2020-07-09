@@ -56,3 +56,29 @@ components:
       required:
         - name
         - version
+    API-Error:
+      title: API-Error
+      type: object
+      description: 'If the API encounters an error, a well formatted response will be constructed.'
+      properties:
+        title:
+          type: string
+          description: Human Readable Error Title
+        detail:
+          type: string
+          description: A more description reason for the Error
+        status:
+          type: string
+          description: The HTTP Status Code as a string
+        code:
+          type: string
+          description: An internal reference code
+        meta:
+          type: array
+          description: 'An optional map of key:value'
+          items: {}
+      required:
+        - title
+        - detail
+        - status
+        - code

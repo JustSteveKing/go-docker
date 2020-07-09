@@ -1,5 +1,7 @@
 # Go Docker
 
+![test](https://github.com/JustSteveKing/go-docker/workflows/test/badge.svg)
+
 A simple experiment GoLang application using Docker.
 
 ## Set up

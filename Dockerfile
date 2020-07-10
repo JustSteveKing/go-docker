@@ -1,15 +1,10 @@
-FROM golang:1.14-alpine
+FROM golang:1.14-alpine AS builder
+RUN apk --no-cache add build-base git mercurial gcc
+ADD . /src
+RUN cd /src && go mod download && go build -o main
 
-LABEL maintainer="Steve McDougall <juststevemcd@gmail.com>"
-
+FROM alpine
 WORKDIR /app
-
-COPY go.mod go.sum ./
-
-RUN go mod download
-
-COPY . .
-
+COPY --from=builder /src/main /app/
 EXPOSE 8080
-
-CMD ["go", "run", "main.go"]
+CMD ["./main"]

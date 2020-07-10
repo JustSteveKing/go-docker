@@ -9,6 +9,7 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/JustSteveKing/go-ship/database"
 	"github.com/JustSteveKing/go-ship/handlers"
 	gohandlers "github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -26,6 +27,9 @@ func init() {
 func main() {
 	// Create a new Logger instance to pass into our Handlers
 	logger := log.New(os.Stdout, "go-ship-service ", log.LstdFlags)
+
+	// Initialise our database
+	database.InitDB()
 
 	// register handlers
 	pingHandler := handlers.NewPingHandler(logger)
@@ -56,6 +60,9 @@ func main() {
 			logger.Fatal(err)
 		}
 	}()
+
+	// close connection when done
+	defer database.DBCon.Close()
 
 	// Graceful Shutdown
 	waitForShutdown(server, logger)

@@ -1,5 +1,5 @@
 FROM golang:1.14-alpine AS builder
-RUN apk --no-cache add build-base git mercurial gcc
+RUN apk --no-cache add build-base git gcc
 ADD . /src
 RUN cd /src && go mod download && go build -o goship
 
